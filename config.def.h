@@ -19,7 +19,7 @@ enum {
    CLIPBOARD_TRIM_WHITESPACE = 0x01,                /* trim trailing and leading whitespace */
    CLIPBOARD_TRIM_WHITESPACE_NO_MULTILINE = 0x02,   /* trim whitespace, if not multiline */
    CLIPBOARD_TRIM_TRAILING_NEWLINE = 0x04,          /* trim trailing newline */
-   CLIPBOARD_OWN_IMMEDIATLY = 0x08,                 /* own clipboard immediatly after new data */
+   CLIPBOARD_OWN_IMMEDIATELY = 0x08,                 /* own clipboard immediatly after new data */
    CLIPBOARD_CLEAR_SELECTIONS = 0x1                 /* clear all special selections on copy.
                                                        this is how X applications expect the clipboard to behave */
 };
@@ -50,7 +50,7 @@ enum {
 clipdata clipboards[] = {
    REGISTER_CLIPBOARD("PRIMARY",   NULL, 0, CLIPBOARD_NONE),
    REGISTER_CLIPBOARD("SECONDARY", NULL, 0,
-         CLIPBOARD_OWN_IMMEDIATLY),
+         CLIPBOARD_OWN_IMMEDIATELY),
    REGISTER_CLIPBOARD("CLIPBOARD", "PRIMARY", 150,
          CLIPBOARD_CLEAR_SELECTIONS),
 };

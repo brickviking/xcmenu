@@ -1402,7 +1402,7 @@ static void handle_clip(clipdata *c, void *buffer, size_t len) {
       OUT("\4Got data from %s", c->name);
       if (c->ohash == (hash = hashb(buffer, len))) {
          /* should own immediatly? */
-         if (c->flags & CLIPBOARD_OWN_IMMEDIATLY) {
+         if (c->flags & CLIPBOARD_OWN_IMMEDIATELY) {
             c->should_own = 1;
             sync_clip(c);
          }
@@ -1415,7 +1415,7 @@ static void handle_clip(clipdata *c, void *buffer, size_t len) {
    c->hash = hashb(c->data, c->size);
    if (!changed || (c->hash == hash && c->ohash != c->hash)) {
       /* should own immediatly? */
-      if (c->flags & CLIPBOARD_OWN_IMMEDIATLY) {
+      if (c->flags & CLIPBOARD_OWN_IMMEDIATELY) {
          c->should_own = 1;
          sync_clip(c);
       }
@@ -1428,7 +1428,7 @@ static void handle_clip(clipdata *c, void *buffer, size_t len) {
       store_clip(c);
 
    /* should own immediatly? */
-   if (c->flags & CLIPBOARD_OWN_IMMEDIATLY)
+   if (c->flags & CLIPBOARD_OWN_IMMEDIATELY)
       c->should_own = 1;
 }
 
@@ -1447,7 +1447,7 @@ static void handle_special_copy(clipdata *c, specialclip *s, void *buffer, size_
    }
 
    bclip[s->data_index].dont_set = 1;
-   if (c->flags & CLIPBOARD_OWN_IMMEDIATLY) c->should_own = 1;
+   if (c->flags & CLIPBOARD_OWN_IMMEDIATELY) c->should_own = 1;
 }
 
 /* handle copying */
