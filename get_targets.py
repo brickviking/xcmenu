@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 # Use this script to find targets
 # from X applications which you can then use as
 # "special selection" in xcmenu
@@ -11,9 +11,9 @@ def test_clipboard():
   print "Targets available:", ", ".join(map(str, targets))
   for target in targets:
     print "Special selection '%s'..." % str(target)
-    # contents = clipboard.wait_for_contents(target)
-    # if contents:
-    #  print contents.data
+    contents = clipboard.wait_for_contents(target)
+    if contents:
+      print contents.data
 
 def main():
   mainloop = glib.MainLoop()
