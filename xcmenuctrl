@@ -24,6 +24,7 @@ usage() {
    cat << EOF
 usage: $(basename $@) [-us]
    -u : url mode
+   -l : list urls to terminal
    -s : sync selection to another selection
         -spc : sync primary to clipboard
         -scp : sync clipboard to primary
@@ -39,6 +40,16 @@ EOF
 urlmode() {
    local protos="https?|ftps?|mailto|ssh|git|file"
    local url="$("$XCMENU" -l | grep -aoP "((($protos):\/\/|www\..*\.)[-/.\?=&%()#@~:\w]+)" | $DMENU -p "loliurl")"
+   [[ -n "$url" ]] || exit 1
+   printf %s "#LC:skip_history:$url" | "$XCMENU" -i --${CLIPBOARD}
+   echo "$url"
+   exit 0
+}
+
+# list urls to terminal
+listurls() {
+   local protos="https?|ftps?|mailto|ssh|git|file"
+   local url="$("$XCMENU" -l | grep -aoP "((($protos):\/\/|www\..*\.)[-/.\?=&%()#@~:\w]+)" )"
    [[ -n "$url" ]] || exit 1
    printf %s "#LC:skip_history:$url" | "$XCMENU" -i --${CLIPBOARD}
    echo "$url"
@@ -81,6 +92,7 @@ main() {
    "$XCMENU" -q &> /dev/null ||
       err "xcmenu returned non zero.\ncheck that it's installed and daemon is running."
    [[ "$1" == "-u" ]] && urlmode
+   [[ "$1" == "-l" ]] && listurls
    [[ "$1" == "-spc" ]] && sync "primary"    "clipboard"
    [[ "$1" == "-scp" ]] && sync "clipboard"  "primary"
    [[ "$1" == "-ssc" ]] && sync "secondary"  "clipboard"
@@ -92,4 +104,4 @@ main() {
 }
 main "$@"
 
-# vim: set ts=8 sw=3 tw=0 :
+# vim: set ts=4 sw=3 tw=0 :
